@@ -21,3 +21,4 @@ class CalcTests(SimpleTestCase):
         res = calc.subtract(10, 4)
 
         self.assertEqual(res, 6)
+        
