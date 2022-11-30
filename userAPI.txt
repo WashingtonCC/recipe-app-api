@@ -1,0 +1,12 @@
+    User API handles:
+- User registration
+- Creating auth token
+- Viewing/updating profile
+
+    Endpoints:
+- user/create/
+    POST - Register a new user
+- user/token/
+    POST - Create a new token
+- user/me/
+    PUT/PATCH - Update profile

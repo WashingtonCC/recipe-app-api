@@ -39,6 +39,6 @@ class User(AbstractBaseUser, PermissionsMixin): # abs:funct for auth system, per
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False) # can or not login to django admin
 
-    objects = UserManager()
+    objects = UserManager() # objects.all, .filter, etc still works
 
     USERNAME_FIELD = 'email' # default was username
