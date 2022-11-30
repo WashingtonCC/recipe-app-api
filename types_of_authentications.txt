@@ -1,0 +1,35 @@
+    TYPES OF AUTHENTICATION
+- Basic:
+Send username and password with each request.
+(BAD)
+
+- Token:
+Use a token in the HTTP header
+
+- JSON Web Token (JWT):
+Use an access and refresh token.
+Advanced and only used in massive websites (millions of users).
+
+- Session:
+Use cookies
+
+
+Token Authentication:
+- Balance of simplicity and security.
+- Supportted out of the box by DRF.
+- Well supported by most clients.
+
+How it works:
+- Create token (Post username/pass)
+- Store token on client (session storage, local storage, cookie, db)
+- Include token in HTTP headers.
+
+Logging out:
+ - Happens on the client side
+ - Delete token
+
+ Why no logout API? (like the login API that creates a token)
+ - Unreliable.
+ - E.g.: user uninstalls app, it's not able to call logout so you don't notice.
+ User disconnects from internet or clear session.
+ - Not useful.
