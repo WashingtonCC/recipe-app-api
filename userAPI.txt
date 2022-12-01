@@ -10,3 +10,8 @@
     POST - Create a new token
 - user/me/
     PUT/PATCH - Update profile
+
+    PATCH VS PUT:
+- PUT is for replacing an entire object.
+- PATCH is for replacing certain attributes, like just the name
+or the email

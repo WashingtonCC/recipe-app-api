@@ -45,3 +45,4 @@ class UserAdmin(BaseUserAdmin): # BaseUserAdmin is like
 
 
 admin.site.register(models.User, UserAdmin)
+admin.site.register(models.Recipe)
