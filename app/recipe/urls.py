@@ -12,6 +12,7 @@ from recipe import views
 
 router = DefaultRouter()
 router.register('recipes', views.RecipeViewSet)
+router.register('tags', views.TagViewSet)
 # router.register('recipes', views)
 # creates a new endpoint api/recipes/ and it will asign all the
 # different endpoints from our viewset to that endpoint.

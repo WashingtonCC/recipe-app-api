@@ -1,0 +1,29 @@
+    Nested Serializers:
+- Serializer within a serializer.
+You have a serializer from drf, and that serializer
+might have a field that links to another serializer.
+- Used for fields that are objects.
+
+    Example nested data (JSON response):
+{
+    "title": "Some title",
+    "user": "Jeff",
+    "tags": [
+        {"name": "Tag 1"},
+        {"name": "Tag 2"},
+    ]
+}
+
+    Code example:
+class TagSerializer(serializers.Serializer):
+    name = serializers.CharField(max_length=100)
+
+class RecipeSerializer(serializers.Serializer):
+    title = serializers.CharField(max_length=100)
+    user = serializers.CharField(max_length=100)
+    tags = TagSerializer(many=True)
+
+
+    Limitations:
+- Read only by default.
+- One can add custom logic to make writable.

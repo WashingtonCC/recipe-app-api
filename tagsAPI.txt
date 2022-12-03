@@ -1,0 +1,19 @@
+Tags API
+
+    In this section:
+- Add ability to add recipe Tags
+- Create model for tags
+- Add tag API endpoints
+- Update recipe endpoints
+    · Adding and listing tags
+
+    Tag Model:
+- name: Name of tag to Create
+- user: user who created/owns tag
+
+    Tag endpoints:
+- /api/recipe/tags
+    · POST: create tag
+    · PUT/PATCH: update tags
+    · DELETE: remove tag
+    · GET: list available tags
