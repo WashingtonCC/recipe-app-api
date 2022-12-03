@@ -213,7 +213,7 @@ class PrivateRecipeAPITests(TestCase):
                 name=tag['name'],
                 user=self.user,
             ).exists()
-            self.assertEqual(exists, True)
+            self.assertTrue(exists)
 
     def test_create_recipe_with_existing_tags(self):
         """Test creating a recipe with existing tags."""
@@ -237,7 +237,7 @@ class PrivateRecipeAPITests(TestCase):
                 name=tag['name'],
                 user=self.user,
             ).exists()
-            self.assertEqual(exists, True)
+            self.assertTrue(exists)
 
     def test_create_tag_on_update(self):
         """Test creating tag when updating a recipe."""
@@ -253,7 +253,7 @@ class PrivateRecipeAPITests(TestCase):
         # here you don't need to call refresh_from_db() because
         # recipe.tags.all() does a new different query and gets the fresh data.
 
-    def test_udpate_recipe_assign_tag(self):
+    def test_update_recipe_assign_tag(self):
         """Test assigning existing tag when updating recipe."""
         tag_breakfast = Tag.objects.create(user=self.user, name='Breakfast')
         recipe = create_recipe(user=self.user)
@@ -266,7 +266,7 @@ class PrivateRecipeAPITests(TestCase):
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertIn(tag_lunch, recipe.tags.all())
-        self.assertNotIn(tag_breakfast, recipe.tag.all())
+        self.assertNotIn(tag_breakfast, recipe.tags.all())
 
     def test_clear_recipe_tags(self):
         """Test clearing a recipes tags."""
@@ -274,7 +274,7 @@ class PrivateRecipeAPITests(TestCase):
         recipe = create_recipe(user=self.user)
         recipe.tags.add(tag)
 
-        payload = []
+        payload = {'tags': []}
         url = detail_url(recipe.id)
         res = self.client.patch(url, payload, format='json')
 
