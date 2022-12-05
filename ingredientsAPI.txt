@@ -1,0 +1,23 @@
+    In this section:
+- Ability to add ingredients to recipes
+- Create model for ingredients
+- Add ingredients API
+- Update recipe endpoint
+    · Create ingredients
+    · Manage ingredients
+
+    Ingredients Model:
+- name: Name of ingredient to Create
+- user: User who owns ingredient
+
+    Ingredients Endpoints:
+- /api/recipe/ingredients/
+    · GET: list ingredients
+- /api/recipe/ingredients/<id>/
+    · GET: get ingredient details
+    · PUT/PATCH: update ingredient
+    · DELETE: remove ingredient
+- /api/recipe/
+    · POST: create ingredients (as part of recipe)
+- /api/recipe/<id>/
+    · PUT/PATCH: create or modify ingredients

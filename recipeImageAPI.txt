@@ -1,0 +1,17 @@
+    In this section:
+- Handling static/media files
+- Adding image dependencies
+- Update recipe model with image field
+- Add image upload endpoint
+
+
+    Image API Design:
+- /api/recipes/<id>/upload-image/
+    • POST: upload image
+
+
+    Dependencies:
+- Pillow (PIL)
+    • zlib, zlib-dev
+    • jpeg-dev
+    (listed on pillow docs)
