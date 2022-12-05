@@ -21,6 +21,22 @@ from core.models import Recipe, Tag, Ingredient
 from recipe import serializers
 
 
+@extend_schema_view(
+    list=extend_schema(
+        parameters=[
+            OpenApiParameter(
+                'tags',
+                OpenApiTypes.STR,
+                description='Comma separated list of IDs to filter',
+            ),
+            OpenApiParameter(
+                'ingredients',
+                OpenApiTypes.STR,
+                description='Comma separated list of ingredient IDs to filter',
+            )
+        ]
+    )
+)
 class RecipeViewSet(viewsets.ModelViewSet):
     """View for manage recipe APIs."""
     serializer_class = serializers.RecipeDetailSerializer
@@ -37,12 +53,12 @@ class RecipeViewSet(viewsets.ModelViewSet):
         # /?tags=1,2,3 -> "1,2,3" -> [1, 2, 3]
         return [int(str_id) for str_id in qs.split(',')]
 
-    def get_queryset(self, params):
+    def get_queryset(self):
         """Retrive recipes for authenticated user ONLY."""
         #return self.queryset.filter(user=self.request.user).order_by('-id')
         tags = self.request.query_params.get('tags')
         ingredients = self.request.query_params.get('ingredients')
-        queryset = self.queryset #The correct way is this, but for some reason doesn't work
+        queryset = super().get_queryset() #The correct way is this, not self.queryset
         if tags:
             tag_ids = self._params_to_ints(tags)
             queryset = queryset.filter(tags__id__in=tag_ids)
@@ -84,6 +100,18 @@ class RecipeViewSet(viewsets.ModelViewSet):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+
+@extend_schema_view(
+    list=extend_schema(
+        parameters=[
+            OpenApiParameter(
+                'assigned_only',
+                OpenApiTypes.INT, enum=[0, 1], # only 0 and 1 can be passed in
+                description='Filter by items assigned to recipes.'
+            )
+        ]
+    )
+)
 class BaseRecipeAttrViewSet(mixins.UpdateModelMixin,
                             mixins.ListModelMixin,
                             mixins.DestroyModelMixin,
@@ -96,7 +124,16 @@ class BaseRecipeAttrViewSet(mixins.UpdateModelMixin,
     
     def get_queryset(self):
         """Filter queryset to authenticated user."""
-        return self.queryset.filter(user=self.request.user).order_by('-name')
+        assigned_only = bool(
+            int(self.request.query_params.get('assigned_only', 0))
+        ) # 1 = True, 0 = False
+        queryset = super().get_queryset()
+        if assigned_only:
+            queryset = queryset.filter(recipe__isnull=False) # the tag has a recipe assigned
+        
+        return queryset.filter(
+            user=self.request.user
+        ).order_by('-name').distinct()
 
 
 class TagViewSet(BaseRecipeAttrViewSet):

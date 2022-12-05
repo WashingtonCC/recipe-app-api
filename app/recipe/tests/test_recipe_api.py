@@ -383,8 +383,8 @@ class PrivateRecipeAPITests(TestCase):
         """Test filtering recipes by tags"""
         r1 = create_recipe(user=self.user, title='Thai Vegetable Curry')
         r2 = create_recipe(user=self.user, title='Aubergine with Tahini')
-        tag1 = Tag.object.create(user=self.user, name='Vegan')
-        tag2 = Tag.object.create(user=self.user, name='Vegetarian')
+        tag1 = Tag.objects.create(user=self.user, name='Vegan')
+        tag2 = Tag.objects.create(user=self.user, name='Vegetarian')
         r1.tags.add(tag1)
         r2.tags.add(tag2)
         r3 = create_recipe(user=self.user, title='Fish and Chips')
@@ -417,7 +417,7 @@ class PrivateRecipeAPITests(TestCase):
         s3 = RecipeSerializer(r3)
         self.assertIn(s1.data, res.data)
         self.assertIn(s2.data, res.data)
-        self.assertNotInt(s3.data, res.data)
+        self.assertNotIn(s3.data, res.data)
 
 
 class ImageUploadTests(TestCase):
