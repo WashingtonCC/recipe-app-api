@@ -1,0 +1,27 @@
+    Various ways to deploy Django.
+https://www.youtube.com/watch?v=IoxHUrbiqUo
+
+- Directly on a server
+    • Run directly on server
+    • Docker
+
+- Serverless Cloud
+    • Google Cloud run / Google App Engine
+    • AWS Elastic Beanstalk / ECS Fargate
+
+
+    How we'll deploy
+- Single VPS (virtual private server) on AWS (EC2) (virt. mach.)
+- Docker / Docker Compose
+    • EC2 Instance Server [Docker -]-> Internet users
+
+    Why this approach?
+- Simple solution
+- Great for testing during development
+- Low cost
+
+
+    Steps
+- Configure project for deployment
+- Create server on AWS
+- Deploy app

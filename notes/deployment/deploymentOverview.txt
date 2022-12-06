@@ -1,0 +1,56 @@
+    Deploying Django
+1. Setup a proxy (it's actually a reverse proxy)
+2. Handle static / media files (through proxy)
+3. Configuration
+
+
+persistent data <-Data--
+                            Reverse Proxy <-Requests-- Users
+WSGI(dj)        <-App--
+
+
+    Why use a reverse proxy?
+- Best practice when deploying Django
+- WSGI server great at executing Python
+    • Not great at serving data
+- Web servers
+    • Serve data really efficiently
+
+
+    Applications we'll use
+- nginx (web server)
+    • Open source, fast, secure, production grade
+- uWSGI (wsgi=web server gateway interface)
+    • Open source, fast, lightweight, siple to use
+- Docker Compose
+
+
+    Docker compose Setup
+- See image
+
+
+    Handling configuration
+- How do we configure deployed app?
+    • Can't put everything into Git
+- Various approaches
+    • Environment variables
+    • Secret managers (third party tools)
+- We'll use environment variables
+    • Popular approach
+    • Simple to use
+
+
+    How configurations works
+- Create .env file on server
+- Set values in Docker Compose
+
+
+    Using AWS
+- We'll host our app on AWS
+    • Popular platform
+- Students responsible for security and costs
+- Must keep your account secure.
+    • Use multifactor authentication
+    • Use strong password
+    • Keep your machine secure and up to data
+    • Delete unused accounts
